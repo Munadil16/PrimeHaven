@@ -1,0 +1,28 @@
+.nav-container {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.228);
+  background: black;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-container > p {
+  margin-left: 4rem;
+  font-size: 1.8rem;
+  font-weight: 250;
+}
+
+.navbar > ul {
+  list-style-type: none;
+  margin-right: 4rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar > ul > li:hover {
+  opacity: 0.6;
+}
