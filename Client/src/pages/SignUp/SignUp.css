@@ -1,0 +1,97 @@
+.signup-header > h1 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 2rem 0;
+}
+
+.signup-controls {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-controls > form {
+  box-sizing: content-box;
+  width: 300px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.291);
+  box-shadow: 0px 0px 4.5px rgba(255, 255, 255, 0.291);
+  border-radius: 0.5rem;
+}
+
+.signup-controls > form > label {
+  font-weight: 350;
+  font-size: 1rem;
+}
+
+.signup-controls > form > input {
+  width: 100%;
+  margin: 0.3rem 0 0.9rem 0;
+  line-height: 1.9rem;
+  background-color: black;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.291);
+  border-radius: 0.3rem;
+  padding-left: 0.7rem;
+  font-size: 1rem;
+}
+
+.signup-controls > form > input[type="checkbox"] {
+  width: auto;
+  margin: 0 10px 1rem 0;
+}
+
+.signup-controls > form > button {
+  width: 100%;
+  background-color: #0d6efd;
+  color: white;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 1.2rem;
+  cursor: pointer;
+}
+
+.signup-controls > form svg {
+  margin-left: 10px;
+  margin-top: -2.5px;
+  vertical-align: middle;
+  font-size: 2rem;
+}
+
+.red-star {
+  color: rgba(255, 0, 0, 0.886);
+}
+
+.link-to-signin {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.user-not-available {
+  color: rgb(250, 48, 48);
+  margin-left: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: none;
+}
+
+.pass-length {
+  color: rgb(250, 48, 48);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: -0.3rem;
+  margin-bottom: 0.8rem;
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}

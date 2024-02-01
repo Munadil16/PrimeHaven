@@ -14,7 +14,7 @@ const Header = () => {
         <ul>
           <li>
             <Link
-              to="/explore"
+              to="/explore/properties"
               style={{ textDecoration: "none", color: "white" }}
             >
               Explore
