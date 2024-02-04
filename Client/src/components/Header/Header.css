@@ -20,9 +20,23 @@
   list-style-type: none;
   margin-right: 4rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
 }
 
 .navbar > ul > li:hover {
   opacity: 0.6;
+}
+
+.profile-desc {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.profile-desc > img {
+  width: 2rem;
+  margin-left: 0.6rem;
 }
