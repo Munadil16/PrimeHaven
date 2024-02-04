@@ -9,41 +9,37 @@ const SignUp = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isValidUser, setIsValidUser] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (password.length < 8) {
+      if (password.length < 6) {
         document.querySelector(".pass-length").classList.add("block");
       } else {
         document.querySelector(".pass-length").classList.remove("block");
+
         const res = await axios.post("/api/signup", {
           email: email,
           username: user,
           password: password,
         });
+
         if (res.data.userAvailable) {
-          setIsValidUser(true);
+          document
+            .querySelector(".user-not-available")
+            .classList.remove("inline-block");
           navigate("/login");
         } else {
-          setIsValidUser(false);
+          document
+            .querySelector(".user-not-available")
+            .classList.add("inline-block");
         }
       }
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    const userNotAvailable = document.querySelector(".user-not-available");
-    if (isValidUser) {
-      userNotAvailable.classList.remove("inline-block");
-    } else {
-      userNotAvailable.classList.add("inline-block");
-    }
-  }, [isValidUser]);
 
   useEffect(() => {
     const input = document.getElementById("password");
@@ -68,6 +64,7 @@ const SignUp = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="eg: john03@outlook.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
@@ -83,6 +80,7 @@ const SignUp = () => {
             type="text"
             id="username"
             name="username"
+            placeholder="eg: John"
             value={user}
             onChange={(e) => setUser(e.target.value)}
             autoComplete="off"
@@ -97,20 +95,21 @@ const SignUp = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <span className="pass-length">
-            Password must be atleast 8 characters!
+            Password must be atleast 6 characters!
           </span>
+
           <input
             type="checkbox"
             id="show-password"
             value={showPassword}
             onChange={(e) => setShowPassword(e.target.checked)}
           />
-
           <label htmlFor="show-password">Show Password</label>
 
           <button type="submit">

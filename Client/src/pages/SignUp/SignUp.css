@@ -12,24 +12,24 @@
 
 .signup-controls > form {
   box-sizing: content-box;
-  width: 300px;
+  background-color: #0a0b0d;
+  width: 290px;
   padding: 1.2rem;
   margin-bottom: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.291);
-  box-shadow: 0px 0px 4.5px rgba(255, 255, 255, 0.291);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.15);
   border-radius: 0.5rem;
 }
 
 .signup-controls > form > label {
   font-weight: 350;
-  font-size: 1rem;
 }
 
 .signup-controls > form > input {
   width: 100%;
-  margin: 0.3rem 0 0.9rem 0;
+  margin: 0.5rem 0 0.9rem 0;
   line-height: 1.9rem;
-  background-color: black;
+  background-color: #0d131c;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.291);
   border-radius: 0.3rem;
@@ -54,6 +54,10 @@
   cursor: pointer;
 }
 
+.signup-controls > form > button:hover {
+  background-color: #0d6dfdc4;
+}
+
 .signup-controls > form svg {
   margin-left: 10px;
   margin-top: -2.5px;
@@ -72,7 +76,7 @@
 }
 
 .user-not-available {
-  color: rgb(250, 48, 48);
+  color: #d11124;
   margin-left: 10px;
   font-size: 0.8rem;
   font-weight: 500;
@@ -80,7 +84,7 @@
 }
 
 .pass-length {
-  color: rgb(250, 48, 48);
+  color: #d11124;
   font-size: 0.8rem;
   font-weight: 500;
   margin-top: -0.3rem;
