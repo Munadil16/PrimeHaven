@@ -14,6 +14,8 @@ import Home from "./pages/Home/Home.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import Logout from "./pages/Logout/Logout.jsx";
+import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
+import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
 import Properties from "./pages/Explore/Properties/Properties.jsx";
 
 const router = createBrowserRouter(
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<SignIn />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="logout" element={<Logout />} />
+      <Route path="reset-password" element={<ResetPassword />} />
+      <Route path="update-password" element={<UpdatePassword />} />
       <Route path="explore/properties" element={<Properties />} />
     </Route>
   )

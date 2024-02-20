@@ -1,10 +1,11 @@
-import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import express from "express";
 import bcrypt from "bcrypt";
 import env from "dotenv";
 import pg from "pg";
+import sendEmail from "../utils/sendEmail.js";
 
 env.config();
 const app = express();
@@ -99,14 +100,50 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
-  res.clearCookie("jwtToken");
-  res.sendStatus(200);
-});
-
 app.get("/api/logged-in", authenticate, (req, res) => {
   const username = req.user.name;
   res.json({ isLoggedIn: true, username });
+});
+
+app.post("/api/reset-password", async (req, res) => {
+  try {
+    const resp = await db.query("SELECT * FROM users WHERE email = $1", [
+      req.body.email,
+    ]);
+
+    if (resp.rowCount) {
+      sendEmail(resp.rows[0]);
+      res.json({ emailFound: true });
+    } else {
+      res.json({ emailFound: false });
+    }
+  } catch (err) {
+    console.log("Error while fetching data for reset-password: ", err);
+  }
+});
+
+app.put("/api/update-password", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      if (err) {
+        console.log("Error in hashing: ", err);
+      } else {
+        await db.query("UPDATE users SET password = $1 WHERE email = $2", [
+          hash,
+          email,
+        ]);
+      }
+    });
+    res.json({ passwordUpdated: true });
+  } catch (err) {
+    console.log("Error while updating password: ", err);
+  }
+});
+
+app.post("/api/logout", (req, res) => {
+  res.clearCookie("jwtToken");
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {

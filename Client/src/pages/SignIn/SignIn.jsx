@@ -58,6 +58,9 @@ const SignIn = () => {
           />
 
           <label htmlFor="password">Password</label>
+          <Link to="/reset-password" className="forgot-password">
+            Forgot password?
+          </Link>
           <input
             type="password"
             id="password"
