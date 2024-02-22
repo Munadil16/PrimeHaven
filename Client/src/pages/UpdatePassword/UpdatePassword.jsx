@@ -35,6 +35,7 @@ const UpdatePassword = () => {
 
         if (res.data.passwordUpdated) {
           alert("Password Updated!");
+          window.location.href = "/login";
         }
       }
     }

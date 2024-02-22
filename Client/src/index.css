@@ -4,8 +4,24 @@
   margin: 0;
 }
 
+.light-theme {
+  --background-color: white;
+  --background-color-less-opacity: rgba(255, 255, 255, 0.15);
+  --color: black;
+  --color-less-opacity: rgba(0, 0, 0, 0.15);
+  --dropdown-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme {
+  --background-color: black;
+  --background-color-less-opacity: rgba(0, 0, 0, 0.15);
+  --color: white;
+  --color-less-opacity: rgba(255, 255, 255, 0.15);
+  --dropdown-color: rgba(255, 255, 255, 0.1);
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: black;
-  color: white;
+  background-color: var(--background-color);
+  color: var(--color);
 }

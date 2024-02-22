@@ -16,7 +16,6 @@ import SignUp from "./pages/SignUp/SignUp.jsx";
 import Logout from "./pages/Logout/Logout.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
-import Properties from "./pages/Explore/Properties/Properties.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +26,6 @@ const router = createBrowserRouter(
       <Route path="logout" element={<Logout />} />
       <Route path="reset-password" element={<ResetPassword />} />
       <Route path="update-password" element={<UpdatePassword />} />
-      <Route path="explore/properties" element={<Properties />} />
     </Route>
   )
 );

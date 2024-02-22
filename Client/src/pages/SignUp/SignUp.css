@@ -1,3 +1,5 @@
+@import url("../../index.css");
+
 .signup-header > h1 {
   text-align: center;
   font-size: 1.6rem;
@@ -12,12 +14,12 @@
 
 .signup-controls > form {
   box-sizing: content-box;
-  background-color: #0a0b0d;
+  background-color: var(--background-color);
   width: 290px;
   padding: 1.2rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.291);
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(200, 184, 184, 0.3);
+  box-shadow: 0px 0px 10px rgba(200, 184, 184, 0.15);
   border-radius: 0.5rem;
 }
 
@@ -29,9 +31,9 @@
   width: 100%;
   margin: 0.5rem 0 0.9rem 0;
   line-height: 1.9rem;
-  background-color: #0d131c;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.291);
+  background-color: var(--background-color);
+  color: var(--color);
+  border: 1px solid rgba(200, 184, 184, 0.3);
   border-radius: 0.3rem;
   padding-left: 0.7rem;
   font-size: 1rem;
@@ -44,7 +46,7 @@
 
 .signup-controls > form > button {
   width: 100%;
-  background-color: #0d6efd;
+  background-color: #009fc3;
   color: white;
   font-size: 1rem;
   margin-top: 0.5rem;
@@ -55,7 +57,7 @@
 }
 
 .signup-controls > form > button:hover {
-  background-color: #0d6dfdc4;
+  background-color: #006075;
 }
 
 .signup-controls > form svg {
