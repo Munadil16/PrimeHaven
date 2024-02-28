@@ -1,0 +1,82 @@
+@import url("../../../index.css");
+
+.buy-property-div > form {
+  display: flex;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+}
+
+.search-bar {
+  width: 400px;
+  padding: 0.7rem;
+  border: 2px solid var(--color-less-opacity);
+  border-radius: 2.5rem;
+}
+
+.search-bar:hover {
+  border: 2px solid var(--color);
+}
+
+.search-bar > input {
+  background-color: var(--background-color);
+  color: var(--color);
+  border: none;
+  outline-width: 0px;
+  width: 325px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.search-bar > img {
+  width: 1.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.select-prop-type, .select-place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-prop-type > select, .select-place > select {
+  background-color: var(--background-color);
+  color: var(--color);
+  width: 170px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid var(--color-less-opacity);
+  border-radius: 2rem;
+}
+
+.display-props {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  margin-top: 3rem;
+}
+
+.property {
+  width: 280px;
+}
+
+.property-image {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.property-title, .property-price {
+  font-size: 1.025rem;
+  font-weight: 450;
+  margin-top: 1rem;
+}
+
+.property-place {
+  font-weight: 450;
+  color: rgb(108, 108, 108);
+}

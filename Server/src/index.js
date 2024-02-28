@@ -1,11 +1,15 @@
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+import fs from "fs";
+import express from "express";
+import pg from "pg";
+import env from "dotenv";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
-import express from "express";
 import bcrypt from "bcrypt";
-import env from "dotenv";
-import pg from "pg";
 import sendEmail from "../utils/sendEmail.js";
+import { states } from "../utils/states.js";
 
 env.config();
 const app = express();
@@ -144,6 +148,15 @@ app.put("/api/update-password", async (req, res) => {
 app.post("/api/logout", (req, res) => {
   res.clearCookie("jwtToken");
   res.sendStatus(200);
+});
+
+app.get("/api/states", (req, res) => {
+  res.json(states);
+});
+
+app.get("/api/properties", async (req, res) => {
+  const resp = await db.query("SELECT * FROM properties");
+  res.json(resp.rows);
 });
 
 app.listen(port, () => {
