@@ -155,8 +155,32 @@ app.get("/api/states", (req, res) => {
 });
 
 app.get("/api/properties", async (req, res) => {
-  const resp = await db.query("SELECT * FROM properties");
-  res.json(resp.rows);
+  let sqlQuery = "SELECT * FROM properties WHERE TRUE";
+  const { search, type, place } = req.query;
+  const queryParams = [];
+  let paramIndex = 1;
+
+  if (search) {
+    sqlQuery += ` AND title ILIKE $${paramIndex++}`;
+    queryParams.push(`%${search}%`);
+  }
+
+  if (type !== "All") {
+    sqlQuery += ` AND propertytype = $${paramIndex++}`;
+    queryParams.push(type);
+  }
+
+  if (place !== "All") {
+    sqlQuery += ` AND state = $${paramIndex++}`;
+    queryParams.push(place);
+  }
+
+  try {
+    const resp = await db.query(sqlQuery, queryParams);
+    res.json(resp.rows);
+  } catch (err) {
+    console.error("Error while fetching properties: ", err);
+  }
 });
 
 app.listen(port, () => {

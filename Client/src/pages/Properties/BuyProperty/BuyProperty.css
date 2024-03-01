@@ -32,7 +32,6 @@
 .search-bar > img {
   width: 1.5rem;
   vertical-align: middle;
-  cursor: pointer;
 }
 
 .select-prop-type, .select-place {
@@ -58,11 +57,18 @@
   justify-items: center;
   gap: 1rem;
   padding: 3rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .property {
   width: 280px;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+
+.property:hover {
+  transform: scale(1.03);
+  transition: transform 0.25s;
 }
 
 .property-image {
@@ -76,7 +82,106 @@
   margin-top: 1rem;
 }
 
+.property-price {
+  margin-bottom: 3rem;
+}
+
 .property-place {
   font-weight: 450;
-  color: rgb(108, 108, 108);
+  margin-top: 0.3rem;
+  color: rgb(129, 129, 129);
+}
+
+.no-properties-matched {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-weight: 600;
+  color: rgb(147, 147, 147);
+}
+
+.property-desc {
+  background-color: var(--property-desc-bgcolor);
+  border-radius: 1rem;
+  position: absolute;
+  top: 15vh;
+  left: 15vw;
+  width: 70vw;
+  padding: 3rem;
+}
+
+.property-desc > .close {
+  width: 2rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.property-desc > .title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.property-desc > .image {
+  width: 30vw;
+  height: 40vh;
+  border-radius: 1rem;
+  margin-top: 2rem;
+}
+
+.property-desc > .details-and-pricing {
+  display: flex;
+  gap: 8rem;
+  margin-top: 2rem;
+}
+
+.property-desc > .details-and-pricing > .details > .owner {
+  margin-bottom: 2rem;
+}
+
+.property-desc > .details-and-pricing > .details > .about {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.property-desc > .details-and-pricing > .details > .desc {
+  line-height: 1.5rem;
+  word-spacing: 0.1rem;
+}
+
+.property-desc > .details-and-pricing > .pricing > form {
+  width: 20vw;
+}
+
+.property-desc > .details-and-pricing > .pricing > form > .days {
+  margin: 0.7rem 0 1rem 0;
+  color: var(--color);
+  background-color: var(--background-color);
+  border: 1px solid rgba(200, 184, 184, 0.3);
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.property-desc > .details-and-pricing > .pricing > form > .total-price {
+  font-size: 1rem;
+}
+
+.property-desc > .details-and-pricing > .pricing > form > .reserve {
+  background-color: #FF385C;
+  color: var(--color);
+  font-size: 1.1rem;
+  width: 80%;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 0.8rem;
+  margin-top: 1.3rem;
+  cursor: pointer;
+}
+
+.property-desc > .details-and-pricing > .pricing > form > .reserve:hover {
+  background-color: #ff0230;
 }
