@@ -17,6 +17,7 @@ import Logout from "./pages/Logout/Logout.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
 import BuyProperty from "./pages/Properties/BuyProperty/BuyProperty.jsx";
+import SellProperty from "./pages/Properties/SellProperty/SellProperty.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="reset-password" element={<ResetPassword />} />
       <Route path="update-password" element={<UpdatePassword />} />
       <Route path="buy-property" element={<BuyProperty />} />
+      <Route path="sell-property" element={<SellProperty />} />
     </Route>
   )
 );

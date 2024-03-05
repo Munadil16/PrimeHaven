@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import multer from "multer";
+
 import sendEmail from "../utils/sendEmail.js";
 import { states } from "../utils/states.js";
 
@@ -15,6 +17,8 @@ env.config();
 const app = express();
 const port = process.env.PORT || 3000;
 const saltRounds = 5;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const db = new pg.Client(process.env.PG_CONN);
 db.connect();
 
@@ -40,6 +44,16 @@ const authenticate = (req, res, next) => {
     res.json({ isLoggedIn: false, username: "" });
   }
 };
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + "/uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 app.post("/api/signup", async (req, res) => {
   try {
@@ -180,6 +194,35 @@ app.get("/api/properties", async (req, res) => {
     res.json(resp.rows);
   } catch (err) {
     console.error("Error while fetching properties: ", err);
+  }
+});
+
+app.post("/api/sell-property", upload.single("image"), async (req, res) => {
+  try {
+    const { owner, type, place, price, title, desc } = req.body;
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const base64Image = `data:${req.file.mimetype};base64,${fileBuffer.toString(
+      "base64"
+    )}`;
+    const resp = await db.query("SELECT id FROM properties");
+
+    await db.query(
+      "INSERT INTO properties VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      [resp.rowCount + 1, owner, base64Image, type, place, price, title, desc]
+    );
+
+    fs.unlink(
+      path.join(__dirname + "/uploads/" + req.file.originalname),
+      (err) => {
+        if (err) {
+          console.log("Error while unlinking file: ", err);
+        }
+      }
+    );
+    res.json({ insertedProperty: true });
+  } catch (err) {
+    console.log("Error while inserting new property: ", err);
+    res.json({ insertedProperty: false });
   }
 });
 

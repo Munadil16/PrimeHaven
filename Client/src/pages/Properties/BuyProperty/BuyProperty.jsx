@@ -86,7 +86,9 @@ const BuyProperty = () => {
           >
             <option value="All">All</option>
             {states.map((state) => (
-              <option key={state.id}>{state.name}</option>
+              <option key={state.id} value={state.name}>
+                {state.name}
+              </option>
             ))}
           </select>
         </div>
