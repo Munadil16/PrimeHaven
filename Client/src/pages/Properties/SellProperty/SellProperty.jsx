@@ -43,6 +43,8 @@ const SellProperty = () => {
       const res = await axios.get("/api/logged-in");
       if (res.data.isLoggedIn === false) {
         navigate("/login");
+      } else {
+        setOwner(res.data.username);
       }
     };
 
@@ -65,9 +67,8 @@ const SellProperty = () => {
           <input
             type="text"
             id="owner"
-            placeholder="Eg: John"
             value={owner}
-            onChange={(e) => setOwner(e.target.value)}
+            readOnly
             autoComplete="off"
             required
           />

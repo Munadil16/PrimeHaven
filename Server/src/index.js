@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import multer from "multer";
+import Stripe from "stripe";
 
 import sendEmail from "../utils/sendEmail.js";
 import { states } from "../utils/states.js";
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3000;
 const saltRounds = 5;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 const db = new pg.Client(process.env.PG_CONN);
 db.connect();
 
@@ -223,6 +225,63 @@ app.post("/api/sell-property", upload.single("image"), async (req, res) => {
   } catch (err) {
     console.log("Error while inserting new property: ", err);
     res.json({ insertedProperty: false });
+  }
+});
+
+app.post("/api/payment", async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: "inr",
+            product_data: {
+              name: req.body.name,
+            },
+            unit_amount: req.body.price * 100,
+          },
+          quantity: 1,
+        },
+      ],
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: "http://localhost:5173/payment-success",
+      cancel_url: "http://localhost:5173/payment-cancel",
+    });
+    res.json({ id: session.id });
+  } catch (err) {
+    console.log("Stripe Payment Error: ", err);
+  }
+});
+
+app.post("/api/payment-success", async (req, res) => {
+  try {
+    const resp = await db.query("SELECT * FROM properties WHERE id = $1", [
+      req.body.id,
+    ]);
+
+    const { propimage, propertytype, state, price, title, description } =
+      resp.rows[0];
+
+    await db.query(
+      "INSERT INTO sold_properties VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+      [
+        resp.rowCount + 1,
+        req.body.owner,
+        propimage,
+        propertytype,
+        state,
+        price,
+        title,
+        description,
+      ]
+    );
+
+    await db.query("DELETE FROM properties WHERE id = $1", [req.body.id]);
+
+    res.json({ isInsertedIntoSoldProperty: true });
+  } catch (err) {
+    console.log("Error while inserting property into sold_properties: ", err);
   }
 });
 

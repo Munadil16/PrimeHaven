@@ -1,15 +1,48 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import { useNavigate } from "react-router-dom";
 import closeImage from "../assets/images/close.png";
 
 const PropertyDesc = ({ property, close }) => {
+  const navigate = useNavigate();
   const [days, setDays] = useState(1);
-  const { propimage, owner, propertytype, state, price, title, description } =
-    property;
+  const {
+    id,
+    owner,
+    propimage,
+    propertytype,
+    state,
+    price,
+    title,
+    description,
+  } = property;
   const totalPrice = days * price + Math.round((18 / 100) * price);
 
-  const handleSubmit = (e) => {
+  const handleReserve = async (e) => {
     e.preventDefault();
+
+    const loginResponse = await axios.get("/api/logged-in");
+
+    if (loginResponse.data.isLoggedIn === false) {
+      navigate("/login");
+    } else {
+      localStorage.setItem("property_id", id);
+
+      const stripe = await loadStripe(
+        `${import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY}`
+      );
+
+      const res = await axios.post("/api/payment", {
+        name: `${title} - ${propertytype}`,
+        price: totalPrice,
+      });
+
+      stripe.redirectToCheckout({
+        sessionId: res.data.id,
+      });
+    }
   };
 
   return (
@@ -27,34 +60,29 @@ const PropertyDesc = ({ property, close }) => {
         </div>
 
         <div className="pricing">
-          {propertytype === "Farm House" ? (
-            <form onSubmit={handleSubmit} method="post">
-              <label htmlFor="days-stay">Number of days staying: </label>
-              <input
-                type="number"
-                min={1}
-                value={days}
-                onChange={(e) => setDays(e.target.value)}
-                className="days"
-                id="days-stay"
-              />
-              <p className="total-price">
-                Total Price (with GST) = ₹ {totalPrice}
-              </p>
-              <button type="submit" className="reserve">
-                Reserve
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmit} method="post">
-              <p className="total-price">
-                {propertytype === "House"
-                  ? `Total Price (with GST) = ₹ ${totalPrice} per month`
-                  : `Total Price (with GST) = ₹ ${totalPrice}`}
-              </p>
-              <button className="reserve">Reserve</button>
-            </form>
-          )}
+          <form onSubmit={handleReserve} method="post">
+            {propertytype === "Farm House" && (
+              <>
+                <label htmlFor="days-stay">Number of days staying: </label>
+                <input
+                  type="number"
+                  min={1}
+                  value={days}
+                  onChange={(e) => setDays(e.target.value)}
+                  className="days"
+                  id="days-stay"
+                />
+              </>
+            )}
+            <p className="total-price">
+              {propertytype === "House"
+                ? `Total Price (with GST) = ₹ ${totalPrice} per month`
+                : `Total Price (with GST) = ₹ ${totalPrice}`}
+            </p>
+            <button type="submit" className="reserve">
+              Reserve
+            </button>
+          </form>
         </div>
       </div>
     </div>
