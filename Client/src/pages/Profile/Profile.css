@@ -1,0 +1,55 @@
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.user-details > img {
+  width: 80px;
+}
+
+.user-details > div > p:first-child {
+  margin-bottom: 1rem;
+}
+
+.user-properties {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3rem;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  font-size: 1.1rem;
+}
+
+.user-properties > p {
+  cursor: pointer;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.user-properties > p:hover {
+  color: gray;
+}
+
+.user-properties > img {
+  width: 50px;
+}
+
+.bought-properties, .selling-properties {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 450;
+}
+
+.display {
+  display: none;
+}
+
+.color {
+  color: gray;
+}

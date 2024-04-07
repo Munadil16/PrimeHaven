@@ -35,7 +35,7 @@ const authenticate = (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
       if (err) {
         console.log("Token Verification Error: ", err);
-        res.json({ isLoggedIn: false, username: "" });
+        res.json({ isLoggedIn: false });
       } else {
         req.user = decodedToken;
         next();
@@ -43,7 +43,7 @@ const authenticate = (req, res, next) => {
     });
   } else {
     console.log("Token Not Found");
-    res.json({ isLoggedIn: false, username: "" });
+    res.json({ isLoggedIn: false });
   }
 };
 
@@ -90,7 +90,7 @@ app.post("/api/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const resp = await db.query(
-      "SELECT username, password FROM users WHERE username = $1",
+      "SELECT email, password FROM users WHERE username = $1",
       [username]
     );
 
@@ -101,7 +101,7 @@ app.post("/api/login", async (req, res) => {
         } else {
           if (result) {
             const token = jwt.sign(
-              { name: username },
+              { name: username, email: resp.rows[0].email },
               process.env.ACCESS_TOKEN_SECRET,
               { expiresIn: "3d" }
             );
@@ -121,8 +121,8 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/logged-in", authenticate, (req, res) => {
-  const username = req.user.name;
-  res.json({ isLoggedIn: true, username });
+  const { name, email } = req.user;
+  res.json({ isLoggedIn: true, username: name, email });
 });
 
 app.post("/api/reset-password", async (req, res) => {
@@ -260,20 +260,25 @@ app.post("/api/payment-success", async (req, res) => {
       req.body.id,
     ]);
 
-    const { propimage, propertytype, state, price, title, description } =
+    const fetchTotalSoldProperties = await db.query(
+      "SELECT id FROM sold_properties"
+    );
+
+    const { owner, propimage, propertytype, state, price, title, description } =
       resp.rows[0];
 
     await db.query(
-      "INSERT INTO sold_properties VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO sold_properties VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       [
-        resp.rowCount + 1,
-        req.body.owner,
+        fetchTotalSoldProperties.rowCount + 1,
+        owner,
         propimage,
         propertytype,
         state,
         price,
         title,
         description,
+        req.body.sold_to,
       ]
     );
 
@@ -282,6 +287,27 @@ app.post("/api/payment-success", async (req, res) => {
     res.json({ isInsertedIntoSoldProperty: true });
   } catch (err) {
     console.log("Error while inserting property into sold_properties: ", err);
+  }
+});
+
+app.post("/api/profile", async (req, res) => {
+  try {
+    const propsBought = await db.query(
+      "SELECT * FROM sold_properties WHERE sold_to = $1",
+      [req.body.user]
+    );
+
+    const propsSelling = await db.query(
+      "SELECT * FROM properties WHERE owner = $1",
+      [req.body.user]
+    );
+
+    res.json({
+      propsBought: propsBought.rows,
+      propsSelling: propsSelling.rows,
+    });
+  } catch (err) {
+    console.log("Error fetching properties for Profile: ", err);
   }
 });
 

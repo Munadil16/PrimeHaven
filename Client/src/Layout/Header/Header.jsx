@@ -8,6 +8,8 @@ import darkThemeIcon from "../../assets/images/DarkThemeIcon.png";
 import lightThemeIcon from "../../assets/images/LightThemeIcon.png";
 import downArrowWhite from "../../assets/images/DownArrowWhite.png";
 import downArrowBlack from "../../assets/images/DownArrowBlack.png";
+import blackLine from "../../assets/images/BlackLine.png";
+import whiteLine from "../../assets/images/WhiteLine.png";
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,12 +19,20 @@ const Header = () => {
   const handleClick = () => {
     const themeImage = document.querySelector(".theme-image");
     const dropDownArrow = document.querySelector(".drop-down-arrow");
+    const line = document.querySelector(".line");
     const body = document.querySelector("body");
+
+    // When we switch themes, 'if' condition runs,
+    // results in changes to all white to turn black color,
+    // isDarkMode changes: true -> false
 
     if (isDarkMode) {
       themeImage.src = darkThemeIcon;
       if (dropDownArrow) {
         dropDownArrow.src = downArrowBlack;
+      }
+      if (line) {
+        line.src = blackLine;
       }
       themeImage.setAttribute("alt", "Dark Theme Icon");
       setIsDarkMode(false);
@@ -30,6 +40,9 @@ const Header = () => {
       themeImage.src = lightThemeIcon;
       if (dropDownArrow) {
         dropDownArrow.src = downArrowWhite;
+      }
+      if (line) {
+        line.src = whiteLine;
       }
       themeImage.setAttribute("alt", "Light Theme Icon");
       setIsDarkMode(true);

@@ -20,6 +20,7 @@ import BuyProperty from "./pages/Properties/BuyProperty/BuyProperty.jsx";
 import SellProperty from "./pages/Properties/SellProperty/SellProperty.jsx";
 import PaymentSuccess from "./components/PaymentSuccess.jsx";
 import PaymentCancel from "./components/PaymentCancel.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       <Route path="sell-property" element={<SellProperty />} />
       <Route path="payment-success" element={<PaymentSuccess />} />
       <Route path="payment-cancel" element={<PaymentCancel />} />
+      <Route path="profile" element={<Profile />} />
     </Route>
   )
 );
