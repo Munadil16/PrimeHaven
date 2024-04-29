@@ -9,7 +9,7 @@ const Logout = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("/api/logout");
+      await axios.post("/api/user/logout");
       window.location.href = "/";
     } catch (err) {
       console.log(err);
@@ -19,7 +19,7 @@ const Logout = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get("/api/logged-in");
+        const res = await axios.get("/api/user/logged-in");
         const { username } = res.data;
         setUserName(username);
       } catch (err) {

@@ -14,13 +14,13 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userLoggedIn = await axios.get("/api/logged-in");
+      const userLoggedIn = await axios.get("/api/user/logged-in");
       setUser(userLoggedIn.data.isLoggedIn ? userLoggedIn.data.username : "");
       setEmail(userLoggedIn.data.isLoggedIn ? userLoggedIn.data.email : "");
     };
 
     const fetchProperties = async () => {
-      const res = await axios.post("/api/profile", { user });
+      const res = await axios.post("/api/p/profile", { user });
       setBoughtProperties(res.data.propsBought);
       setSellingProperties(res.data.propsSelling);
     };

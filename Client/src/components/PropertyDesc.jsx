@@ -23,7 +23,7 @@ const PropertyDesc = ({ property, close }) => {
   const handleReserve = async (e) => {
     e.preventDefault();
 
-    const loginResponse = await axios.get("/api/logged-in");
+    const loginResponse = await axios.get("/api/user/logged-in");
 
     if (loginResponse.data.isLoggedIn === false) {
       navigate("/login");
@@ -34,7 +34,7 @@ const PropertyDesc = ({ property, close }) => {
         `${import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY}`
       );
 
-      const res = await axios.post("/api/payment", {
+      const res = await axios.post("/api/pay/payment", {
         name: `${title} - ${propertytype}`,
         price: totalPrice,
       });

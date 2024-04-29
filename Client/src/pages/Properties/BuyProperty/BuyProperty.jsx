@@ -39,7 +39,7 @@ const BuyProperty = () => {
     navigate(newURL);
 
     const getProperties = async () => {
-      const res = await axios.get("/api/properties" + newURL);
+      const res = await axios.get("/api/p/properties" + newURL);
       setProperties(res.data);
     };
     getProperties();

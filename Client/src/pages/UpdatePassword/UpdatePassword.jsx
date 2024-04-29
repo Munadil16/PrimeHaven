@@ -28,7 +28,7 @@ const UpdatePassword = () => {
           .querySelector(".password-not-matched")
           .classList.remove("display-block");
 
-        const res = await axios.put("/api/update-password", {
+        const res = await axios.put("/api/user/update-password", {
           password: confirmPassword,
           email: email,
         });

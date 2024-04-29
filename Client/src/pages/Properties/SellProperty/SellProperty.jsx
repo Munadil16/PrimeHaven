@@ -27,7 +27,7 @@ const SellProperty = () => {
     formData.append("title", title);
     formData.append("desc", desc);
 
-    const res = await axios.post("/api/sell-property", formData, {
+    const res = await axios.post("/api/p/sell-property", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -40,7 +40,7 @@ const SellProperty = () => {
 
   useEffect(() => {
     const checkSignedIn = async () => {
-      const res = await axios.get("/api/logged-in");
+      const res = await axios.get("/api/user/logged-in");
       if (res.data.isLoggedIn === false) {
         navigate("/login");
       } else {

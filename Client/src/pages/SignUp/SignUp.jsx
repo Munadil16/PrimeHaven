@@ -19,7 +19,7 @@ const SignUp = () => {
       } else {
         document.querySelector(".pass-length").classList.remove("block");
 
-        const res = await axios.post("/api/signup", {
+        const res = await axios.post("/api/user/signup", {
           email: email,
           username: user,
           password: password,

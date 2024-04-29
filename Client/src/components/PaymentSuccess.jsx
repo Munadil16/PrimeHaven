@@ -8,9 +8,9 @@ const PaymentSuccess = () => {
 
   const handleRedirect = async () => {
     const id = localStorage.getItem("property_id");
-    const isSignedIn = await axios.get("/api/logged-in");
+    const isSignedIn = await axios.get("/api/user/logged-in");
     const sold_to = isSignedIn.data.username;
-    const res = await axios.post("/api/payment-success", { id, sold_to });
+    const res = await axios.post("/api/pay/payment-success", { id, sold_to });
 
     if (res.data.isInsertedIntoSoldProperty) {
       localStorage.removeItem("property_id");

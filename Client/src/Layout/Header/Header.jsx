@@ -61,7 +61,7 @@ const Header = () => {
 
   (async () => {
     try {
-      const res = await axios.get("/api/logged-in");
+      const res = await axios.get("/api/user/logged-in");
       const { isLoggedIn, username } = res.data;
       setIsAuthenticated(isLoggedIn);
       setUserName(username);
