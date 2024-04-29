@@ -29,7 +29,6 @@ To get a local copy up and running, please follow these simple steps.
    `npm install` or `npm i`
    > use cd to move into respective directories (Client, Server) before installing \
 4. Setting up .env files \
-
    - Client \
      `VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY=`
    - Server \
@@ -39,9 +38,10 @@ To get a local copy up and running, please follow these simple steps.
       `SMTP_PASS=`\
       `STRIPE_PRIVATE_KEY=`\
       `PORT=`
-     > Get the VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY and STRIPE_PRIVATE_KEY from Stripe by creating an account. <br />
-     > Get the SMTP_EMAIL and SMTP_PASS from your Google Account -> Security -> 2-Step Verification -> App Passwords <br />
-     > Get the PG_CONN value from creating an account in [NeonDB](https://neon.tech/) or from any PostgreSQL Online Provider
+
+> Get the VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY and STRIPE_PRIVATE_KEY from Stripe by creating an account. <br /><br />
+> Get the SMTP_EMAIL and SMTP_PASS from your Google Account -> Security -> 2-Step Verification -> App Passwords <br /><br />
+> Get the PG_CONN value from creating an account in [NeonDB](https://neon.tech/) or from any PostgreSQL Online Provider
 
 5. Create a folder named "uploads" in `Server/src/`
 6. Start the Server (cd to Server Folder) \
